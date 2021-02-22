@@ -1,0 +1,42 @@
+module.exports.loop = function () {
+    
+    
+    let miner = require('role_miner')
+    let upgrader = require('role_upgrader')
+    
+    for (let name in Memory.creeps) {
+       
+        if (Game.creeps[name] == undefined) {
+            delete Memory.creeps[name];
+        }
+    }
+    
+    for (let name in Game.creeps)
+    {
+        
+        var creep = Game.creeps[name];
+        creep.say(creep.memory.role);
+        if(creep.memory.role == 'miner'){
+            miner.run(creep);
+        }
+        else if(creep.memory.role == 'upgrader'){
+            upgrader.run(creep);
+        }
+        
+    }
+    
+     let numberOfMiners = _.sum(Game.creeps, (c) => c.memory.role == 'miner');
+     let numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
+     console.log(numberOfMiners);
+     
+    let z = Math.random()
+    let spawnName = String(z)
+     
+     if(numberOfMiners < 2){
+        Game.spawns["Spawn1"].spawnCreep([WORK,CARRY,CARRY,MOVE], spawnName, {memory:{ role: 'miner', working: false }}); 
+     }
+     else if(numberOfUpgraders < 2){
+         Game.spawns["Spawn1"].spawnCreep([WORK,CARRY,CARRY,MOVE], spawnName, {memory:{ role: 'upgrader', working: false }}); 
+
+     }
+}
