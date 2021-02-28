@@ -20,9 +20,7 @@ if(!creep.memory.working){
         if (creep.memory.working == false) {
             var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (s) => s.energy < s.energyCapacity});
             
-            if(structure.energy != undefined){
-                
-            }
+
             
             if (creep.transfer(Game.spawns.Spawn1, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 
